@@ -7,6 +7,8 @@ public class WayPoint : MonoBehaviour
 
     [SerializeField] private int targetersAmount;
 
+    public int TargetersAmount { get { return targetersAmount;} }
+
     private Renderer myRenderer;
 
     void Start()
@@ -28,13 +30,23 @@ public class WayPoint : MonoBehaviour
 
     private void CheckStatus()
     {
-        if (targetersAmount > 0)
+        switch (targetersAmount)
         {
-            myRenderer.material.SetColor("_Color", Color.magenta);
-        }
-        else
-        {
-            myRenderer.material.SetColor("_Color", Color.cyan);
+            case 0:
+                myRenderer.material.SetColor("_Color", Color.cyan);
+                break;
+
+            case 1:
+                myRenderer.material.SetColor("_Color", Color.yellow);
+                break;
+
+            case 2:
+                myRenderer.material.SetColor("_Color", Color.magenta);
+                break;
+
+            case 3:
+                myRenderer.material.SetColor("_Color", Color.red);
+                break;
         }
     }
 }

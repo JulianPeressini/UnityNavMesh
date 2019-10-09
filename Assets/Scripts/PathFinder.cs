@@ -12,14 +12,15 @@ public class PathFinder : MonoBehaviour
     private float CheckTargetInterval = 0.2f;
     private float CheckTargetTime = 2;
 
-    GameObject nextTarget;
-    GameObject lastTarget;
+    private GameObject nextTarget;
+    private GameObject lastTarget;
 
-    //private int rmd;
+    private Renderer myRenderer;
 
     void Start()
     {
-        self = GetComponent<NavMeshAgent>();          
+        self = GetComponent<NavMeshAgent>();    
+        myRenderer = GetComponent<Renderer>();      
     }
 
     void Update()
@@ -40,6 +41,27 @@ public class PathFinder : MonoBehaviour
                 CheckTargetTime = Time.time + CheckTargetInterval;
             }
         }
+
+            int targetPartners = nextTarget.GetComponent<WayPoint>().TargetersAmount;
+
+            switch (targetPartners)
+            {
+                case 0:
+                    myRenderer.material.SetColor("_Color", Color.cyan);
+                    break;
+
+                case 1:
+                    myRenderer.material.SetColor("_Color", Color.yellow);
+                    break;
+
+                case 2:
+                    myRenderer.material.SetColor("_Color", Color.magenta);
+                    break;
+
+                case 3:
+                    myRenderer.material.SetColor("_Color", Color.red);
+                    break;
+            }
     }
 
     private void SetNewTarget()
